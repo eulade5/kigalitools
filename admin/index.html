@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Admin — Amazing Tools Company</title>
+<link rel="icon" href="../assets/logo.jpeg" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="admin-shell">
+
+<!-- Login screen -->
+<section id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
+  <div class="admin-card" style="max-width:420px;width:100%;padding:32px">
+    <div class="center" style="margin-bottom:22px">
+      <p class="eyebrow">Restricted Area</p>
+      <h1 style="font-family:var(--font-h);font-size:26px">Admin Sign In</h1>
+      <p class="muted" style="font-size:13px;margin-top:8px">Manage products & categories.</p>
+    </div>
+    <form id="login-form">
+      <label>Email</label><input type="email" id="email" required />
+      <label>Password</label><input type="password" id="password" required />
+      <p id="login-err" style="color:#f87171;font-size:12px;margin-top:10px"></p>
+      <button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;margin-top:18px">Sign In</button>
+    </form>
+    <a href="../index.html" class="muted" style="display:block;text-align:center;margin-top:18px;font-size:12px">← Back to website</a>
+  </div>
+</section>
+
+<!-- Dashboard -->
+<div id="dashboard" style="display:none">
+  <header class="admin-head">
+    <div class="container">
+      <div>
+        <p class="eyebrow" style="margin-bottom:4px">Admin</p>
+        <h1>Catalog Management</h1>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a href="../index.html" class="muted" style="font-size:13px">View site</a>
+        <span class="muted" style="font-size:13px" id="who"></span>
+        <button class="btn btn-outline" id="logout" style="padding:8px 16px;font-size:12px">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" style="padding:30px 24px 80px">
+    <div class="tabbar">
+      <button class="tab active" data-tab="products">Products</button>
+      <button class="tab" data-tab="categories">Categories</button>
+    </div>
+
+    <!-- Products tab -->
+    <div id="tab-products">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+        <p class="muted" id="prod-count">Loading…</p>
+        <button class="btn btn-gold" id="new-product">+ Add Product</button>
+      </div>
+      <div id="prod-list"></div>
+    </div>
+
+    <!-- Categories tab -->
+    <div id="tab-categories" style="display:none">
+      <div class="admin-card" style="padding:22px;margin-bottom:24px">
+        <h3 style="font-family:var(--font-b);font-size:15px;margin-bottom:6px">Add Category</h3>
+        <form id="cat-form" style="display:grid;gap:10px;grid-template-columns:1fr 1fr 2fr auto">
+          <div><label>Name</label><input id="cat-name" required /></div>
+          <div><label>Image URL (optional)</label><input id="cat-image" placeholder="https://..." /></div>
+          <div><label>Description (optional)</label><input id="cat-desc" /></div>
+          <div style="align-self:end"><button class="btn btn-gold" type="submit">Add</button></div>
+        </form>
+        <p id="cat-err" style="color:#f87171;font-size:12px;margin-top:8px"></p>
+      </div>
+      <div id="cat-list" class="grid grid-4"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Product modal -->
+<div class="modal-bg" id="prod-modal" style="display:none">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3 id="modal-title" style="font-family:var(--font-b);font-size:18px">Add Product</h3>
+      <button class="icon-btn" id="modal-close">✕</button>
+    </div>
+    <form id="prod-form">
+      <label>Name</label><input id="p-name" required />
+      <label>Description</label><textarea id="p-desc" rows="3"></textarea>
+      <label>Category</label><select id="p-cat" required></select>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div><label>Variant Label (optional)</label><input id="p-vlabel" placeholder="e.g. Size, Finish" /></div>
+        <div><label>Variants (comma separated)</label><input id="p-variants" placeholder="60×120, 75×150" /></div>
+      </div>
+      <label>Product Image</label>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div id="p-preview" style="width:96px;height:96px;border:1px solid var(--border);border-radius:10px;background:#22253a;background-size:cover;background-position:center"></div>
+        <div style="flex:1">
+          <input type="file" id="p-file" accept="image/*" />
+          <p class="muted" style="font-size:11px;margin-top:6px">…or paste an image URL below</p>
+          <input id="p-image" placeholder="https://..." />
+        </div>
+      </div>
+      <p id="prod-err" style="color:#f87171;font-size:12px;margin-top:10px"></p>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px">
+        <button type="button" class="btn btn-outline" id="modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-gold" id="prod-save">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
