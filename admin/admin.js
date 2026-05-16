@@ -18,10 +18,7 @@ window.onSb(async (sb)=>{
     const { data, error } = await sb.auth.signInWithPassword({email, password});
     if(error) return showError('login-err', error.message);
     const ae = window.APP_CONFIG.ADMIN_EMAIL;
-    if(ae && data.user.email !== ae){
-      await sb.auth.signOut();
-      return showError('login-err', `Account ${data.user.email} is not authorised.`);
-    }
+   
     enterDashboard(data.user);
   });
 });
