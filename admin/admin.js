@@ -24,7 +24,8 @@ window.onSb(async (sb) => {
       if (error) throw error;
       // No admin-email restriction — any authenticated user can manage
       await enterDashboard(data.user);
-    } catch (err) {
+    }
+    alert('Login successful'); catch (err) {
       showError('login-err', err.message || 'Sign in failed');
     } finally {
       submitBtn.disabled = false;
